@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>⋱♱⋰ ⋱✮⋰ ⋱♱⋰ ⋱✮⋰ ⋱♱⋰</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- オーバーレイ -->
+<div id="overlay">
+  <section class="window">
+
+    <header class="window-bar">
+      <p class="system-text">System Message</p>
+      <div class="window-controls">
+        <button class="mini-btn" type="button">－</button>
+        <button class="close-btn" type="button">×</button>
+      </div>
+    </header>
+
+    <div class="window-content">
+      <p class="message">ポートフォリオを起動しますか？</p>
+
+      <div class="action-buttons">
+        <button class="cancel-btn" type="button">やめる</button>
+        <button class="ok-btn" type="button">起動する</button>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- 暗転 -->
+<div id="blackout"></div>
+
+<!-- ロード画面 -->
+<div id="loading">
+  <div class="spinner"></div>
+</div>
+
+<!-- メイン画面 -->
+<main id="main-screen">
+  <!-- ★統一：data-back を付与（indexでは起動画面へ戻る） -->
+  <button id="back-btn" data-back type="button">◀ 戻る</button>
+
+  <!-- 掲載作品の注記（My Skill の上） -->
+  <p class="top-sub work-note">
+    掲載作品はすべて個人制作です（企画・デザイン・制作まで一貫して担当）
+  </p>
+
+  <!-- My Skill -->
+  <section class="hover-info" tabindex="0">
+    <div class="hover-label">My Skill</div>
+    <div class="hover-panel" aria-hidden="true">
+      <p class="hover-panel-text">
+        <span class="skill-key">プログラミング</span>：JavaScript（メイン／授業で学習）、Python/Anaconda（授業で基礎を学習）,<br>
+        <span class="skill-key">Adobe Creative Cloud</span>：Illustrator／Photoshop／Premiere Pro（授業で使用／基礎）、ポートフォリオ制作でIllustrator・Photoshopを使用,<br>
+        <span class="skill-key">3D</span>：Maya（授業で使用／基礎）、Blender／Nomad（独学で制作、ポートフォリオ制作で使用）,<br>
+        <span class="skill-key">語学</span>：TOPIK6級(韓国語)、英検2級,<br><br>
+        <span class="skill-key">音楽経験</span>（20年）：バイオリン中心（他：ピアノ／ドラム／トロンボーン）。コンクール入賞経験、オーケストラ5年所属、ドイツ演奏旅行、福祉施設等での演奏活動,<br>
+        <span class="skill-key">その他資格等</span>：剣道三段、茶道初級,<br>
+        <span class="skill-key">文章作成</span>：高校時代、全国の学生向け記事募集企画で選出され、新聞紙面に掲載（媒体名・年次は要確認）
+      </p>
+    </div>
+  </section>
+
+  <!-- 「※それぞれ…」は My Skill の下 -->
+  <p class="top-sub skill-note">
+    ※それぞれ、タップ/マウスをかざすと説明が表示されます。
+  </p>
+
+  <!-- 画像（カテゴリ）4つ：クリックで次ページへ -->
+  <div class="grid">
+    <a class="card" href="soba.html">
+      <div class="thumb">
+        <img src="images/IMG_7227.png" alt="">
+        <div class="thumb-caption">《蕎麦粉フレーク》</div>
+      </div>
+      <p class="card-text">1.新商品開発企画案</p>
+    </a>
+
+    <a class="card" href="ad.html">
+      <div class="thumb">
+        <img src="images/IMG_7228.png" alt="">
+        <div class="thumb-caption">　</div>
+      </div>
+      <p class="card-text">2．仮想広告案</p>
+    </a>
+
+    <a class="card" href="food.html">
+      <div class="thumb">
+        <img src="images/IMG_7229.png" alt="">
+        <div class="thumb-caption">　</div>
+      </div>
+      <p class="card-text">3．子供向け体験型企画案</p>
+    </a>
+
+    <a class="card" href="hobby.html">
+      <div class="thumb">
+        <img src="images/IMG_7230.png" alt="">
+        <div class="thumb-caption">　</div>
+      </div>
+      <p class="card-text">そのほか</p>
+    </a>
+  </div>
+
+  <!-- Thank you（下） -->
+  <section class="top-text">
+    <h1 class="top-title"><br>Thank you for Viewing.</h1>
+    <p class="top-sub">本ポートフォリオの作品は 自主制作/架空案件です。<br>実在の企業・団体・施策とは関係ありません。</p>
+    <br><p class="footer-note-text">
+      Icons: Material Symbols (Apache License 2.0)<br>
+      Fonts: DotGothic16, Zen Kaku Gothic New (SIL Open Font License 1.1)<br><br>
+      連絡先: <span class="skill-key">hq3.hnmk@gmail.com / 080-9710-5076</span>
+    </p>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

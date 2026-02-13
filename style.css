@@ -1,0 +1,701 @@
+body {
+  margin: 0;
+  background: #fafafa;
+  font-family: "DotGothic16", monospace;
+}
+
+/* ===== 見出し（太字部分）だけ別フォント ===== */
+.top-title,
+.project-title,
+.section-title,
+.hover-label {
+  font-family: "Zen Kaku Gothic New", system-ui, sans-serif;
+  font-weight: 700;
+}
+
+/* ===== オーバーレイ ===== */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s;
+}
+
+/* ===== ウィンドウ ===== */
+.window {
+  width: 420px;
+  background: #fdfdfd;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* 上部バー */
+.window-bar {
+  background: #e6e6e6;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.system-text {
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.window-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.mini-btn,
+.close-btn {
+  width: 24px;
+  height: 20px;
+  background: #ffffff;
+  color: #e6e6e6;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* 中身 */
+.window-content {
+  padding: 22px 24px;
+  text-align: center;
+}
+
+.message {
+  color: #777;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+}
+
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.cancel-btn,
+.ok-btn {
+  padding: 7px 22px;
+  background: #fff;
+  border: 1px solid #777;
+  color: #777;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: "DotGothic16", monospace;
+}
+
+.ok-btn {
+  box-shadow: inset 0 0 0 2px #b7e3f4;
+}
+
+.ok-btn:hover,
+.cancel-btn:hover,
+.mini-btn:hover,
+.close-btn:hover {
+  box-shadow: inset 0 0 0 2px #f4b7d7;
+}
+
+/* ===== 暗転・ロード ===== */
+#blackout {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 100;
+}
+
+#loading {
+  position: fixed;
+  inset: 0;
+  background: #fafafa;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 101;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #777;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== メイン画面（index.html） ===== */
+#main-screen {
+  display: none;
+  padding: 70px 0 90px;
+  position: relative;
+}
+
+#back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #fff;
+  color: #777;
+  border: 1px solid #777;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#back-btn:hover {
+  box-shadow: inset 0 0 0 3px #b7e3f4;
+}
+
+/* ===== 上のテキスト枠 ===== */
+.top-text {
+  width: 520px;
+  max-width: calc(100% - 40px);
+  margin: 0 auto 40px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  text-align: center;
+}
+
+.top-title {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.top-sub {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #666;
+}
+
+/* 掲載作品の注記（My Skillの上） */
+.top-sub.work-note{
+  width: 520px;
+  max-width: calc(100% - 40px);
+  margin: 0 auto 12px auto;
+  text-align: center;
+  display: block;
+}
+
+/* My Skill下の注意書き */
+.top-sub.skill-note{
+  width: 520px;
+  max-width: calc(100% - 40px);
+  margin: 12px auto 40px auto;
+  text-align: center;
+  display: block;
+}
+
+/* ===== グリッド（カテゴリ） ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 220px);
+  gap: 40px;
+  justify-content: center;
+}
+
+.card {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.card-text {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* 画像枠（ホバーで青縁） */
+.thumb {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  transition: box-shadow 0.15s;
+}
+
+.thumb img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  display: block;
+}
+
+.card:hover .thumb,
+.card:focus .thumb {
+  box-shadow: inset 0 0 0 4px #b7e3f4;
+}
+
+/* キャプション（必要ならON） */
+.thumb-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  font-size: 12px;
+  color: #000;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+/*
+.card:hover .thumb-caption,
+.card:focus .thumb-caption { opacity: 1; }
+*/
+
+/* ===== 下のホバー説明（My Profile） ===== */
+.hover-info {
+  /* ★ここが距離の原因だったので 60px → 12px に変更 */
+  margin: 12px auto 0;
+
+  width: 520px;
+  max-width: calc(100% - 40px);
+  text-align: center;
+  outline: none;
+}
+
+.hover-label {
+  display: inline-block;
+  padding: 8px 40px;
+  background: transparent;
+  border: 1px solid transparent;
+  font-size: 18px;
+  transition: box-shadow 0.15s, background 0.15s;
+}
+
+.hover-panel {
+  margin-top: 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.15);
+  padding: 14px 12px;
+  display: none;
+
+  /* My Skill の説明文だけ左揃え */
+  text-align: left;
+}
+
+.hover-info:hover .hover-panel,
+.hover-info:focus-within .hover-panel,
+.hover-info:focus .hover-panel {
+  display: block;
+}
+
+.hover-info:hover .hover-label,
+.hover-info:focus-within .hover-label,
+.hover-info:focus .hover-label {
+  box-shadow: inset 0 0 0 4px #b7e3f4;
+  background: rgba(255,255,255,0.6);
+}
+
+.hover-panel-text {
+  margin: 0;
+  font-size: 12px;
+  color: #333;
+  line-height: 1.8;
+}
+
+/* ★追加：ホバー内の見出し語だけ下線 */
+.skill-key{
+  display: inline-block;
+  padding-bottom: 1px;
+  border-bottom: 1px solid rgba(0,0,0,0.35);
+}
+
+/* My Skill の下の文章 */
+.footer-note{
+  width: 520px;
+  max-width: calc(100% - 40px);
+  margin: 14px auto 0;
+  text-align: center;
+}
+.footer-note-text{
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   作品ページ（soba / ad / food / hobby 共通）
+   ========================================================= */
+
+/* タイトルが戻るボタンにかぶらないよう上に余白 */
+.work-page{
+  padding: 84px 24px 24px;
+  font-family: "DotGothic16", monospace;
+}
+
+/* 戻るボタン（indexと同じ見た目） */
+.back-link{
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #fff;
+  color: #777;
+  border: 1px solid #777;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  text-decoration: none;
+  display: inline-block;
+  z-index: 999;
+}
+.back-link:hover,
+.back-link:focus{
+  box-shadow: inset 0 0 0 4px #b7e3f4;
+}
+
+.project-page{
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.project-header{
+  margin-bottom: 18px;
+}
+.project-kicker{
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: #777;
+  letter-spacing: .08em;
+}
+.project-title{
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+}
+.project-lead{
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.8;
+}
+
+.project-section{
+  margin-top: 22px;
+}
+.section-title{
+  margin: 0 0 12px;
+  font-size: 16px;
+  color: #333;
+}
+
+.media{
+  margin: 0;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.media img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+}
+
+.media:hover img,
+.media:focus-within img,
+.media:active img{
+  box-shadow: inset 0 0 0 4px #b7e3f4;
+}
+
+.media-caption{
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 10px;
+  padding: 10px 10px;
+
+  display: none;
+}
+
+.media:hover .media-caption,
+.media:focus-within .media-caption,
+.media:active .media-caption{
+  display: block;
+}
+
+.cap-title{
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: #333;
+}
+
+.cap-text{
+  margin: 0;
+  font-size: 12px;
+  color: #444;
+  line-height: 1.7;
+}
+
+.two-col{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 700px){
+  .two-col{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ad用 */
+.text-block{ margin-top: 14px; }
+.text-strong{ margin: 14px 0 6px; font-size: 15px; color: #333; }
+.text-line{ margin: 6px 0 0; font-size: 12px; color: #555; line-height: 1.8; }
+.media-wide img{ width: 100%; height: auto; }
+.three-col{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+.wide-and-small{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+@media (max-width: 700px){
+  .three-col{ grid-template-columns: 1fr; }
+  .wide-and-small{ grid-template-columns: 1fr; }
+}
+
+/* food */
+.food-sec1{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+.food-sec1-right{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+}
+
+.food-sec2{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.food-sec2-left{
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+.food-portrait{
+  height: 420px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.food-portrait img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 14px;
+}
+
+.food-sec3{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 700px){
+  .food-sec1,
+  .food-sec2{
+    grid-template-columns: 1fr;
+  }
+  .food-sec1-right{
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.food-sec2{ align-items: stretch; }
+.food-portrait{
+  height: 100%;
+  align-self: stretch;
+  display: grid;
+}
+.food-portrait img{
+  height: 100%;
+  object-fit: cover;
+}
+
+/* hobby */
+.hobby-big4{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+.hobby-small4{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+.plain{
+  border-radius: 14px;
+  overflow: hidden;
+}
+.plain img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+}
+.hobby-tall2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.hobby-tall img{
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+@media (max-width: 700px){
+  .hobby-big4{ grid-template-columns: 1fr; }
+  .hobby-small4{ grid-template-columns: repeat(2, 1fr); }
+  .hobby-tall2{ grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   スマホだけ「起動画面＋メイン」を大きくする
+   ========================================================= */
+@media (max-width: 768px){
+
+  /* ===== 起動ウィンドウ（距離感：小さめ） ===== */
+  #overlay{
+    padding: 10vh 0;
+  }
+
+  .window{
+    width: min(78vw, 420px);
+    transform: scale(0.92);
+    transform-origin: center;
+  }
+
+  .window-content{
+    padding: 22px 16px;
+  }
+
+  .message{
+    font-size: 16px;
+    line-height: 1.85;
+  }
+
+  .cancel-btn,
+  .ok-btn{
+    padding: 9px 20px;
+    font-size: 14px;
+  }
+
+  /* ===== メイン画面 ===== */
+  #main-screen{
+    padding: 56px 0 70px;
+  }
+
+  .top-text{
+    width: min(92vw, 560px);
+    margin: 0 auto 26px;
+  }
+
+  .top-title{
+    font-size: 19px;
+  }
+
+  .top-sub{
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  /* スマホ：掲載作品の注記 */
+  .top-sub.work-note{
+    width: min(92vw, 560px);
+    margin: 0 auto 10px auto;
+    text-align: center;
+    display: block;
+  }
+
+  /* スマホ：My Skill の上の距離も揃える */
+  .hover-info{
+    margin: 10px auto 0;
+  }
+
+  /* スマホ：My Skill下の注意書き */
+  .top-sub.skill-note{
+    width: min(92vw, 560px);
+    margin: 10px auto 26px auto;
+    text-align: center;
+    display: block;
+  }
+
+  .grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    padding: 0 16px;
+  }
+
+  .thumb{
+    width: 44vw;
+    max-width: 240px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .thumb img{
+    width: 84%;
+    height: 84%;
+  }
+
+  .card-text{
+    font-size: 14px;
+  }
+
+  .hover-info,
+  .footer-note{
+    width: min(92vw, 560px);
+  }
+}
